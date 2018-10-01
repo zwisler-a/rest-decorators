@@ -5,16 +5,17 @@
   "main": "index.js",
   "scripts": {
     "compile": "tsc",
-    "start": "ts-node src/dev-server/server.ts"
+    "start": "nodemon"
   },
   "author": "Zwisler",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^10.11.3",
     "express": "^4.16.3",
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
+    "@types/node": "^10.11.3",
+    "nodemon": "^1.18.4",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.1"
   }
