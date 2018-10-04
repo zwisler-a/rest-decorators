@@ -7,6 +7,7 @@ const defaultConfig = {
 
 /**
  * Defines a route inside the server. Can have middleware and a basePath
+ * This will be a service in the generated API
  *
  * @example
  * @Route()
