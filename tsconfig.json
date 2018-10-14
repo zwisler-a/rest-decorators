@@ -2,7 +2,7 @@
     "compileOnSave": false,
     "compilerOptions": {
         "baseUrl": "./",
-        "outDir": "out-tsc",
+        "outDir": "dist",
         "sourceMap": true,
         "declaration": true,
         "module": "commonjs",

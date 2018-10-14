@@ -13,7 +13,13 @@ export function registerEndpoint(route, endpoint: Endpoint) {
 
     Logger.debug('Endpoint:', endpoint.config.method, path, endpoint.config.parameterTypes.join(', '));
 
-    const middleware = endpoint.route.config.middleware || [];
+    let middleware;
+    if (endpoint.route.config.middleware) {
+        middleware = [...endpoint.route.config.middleware];
+    } else {
+        middleware = [];
+    }
+
     if (endpoint.config.middleware) {
         middleware.concat(endpoint.config.middleware);
     }

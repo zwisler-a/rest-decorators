@@ -24,7 +24,7 @@ export function Endpoint(config: EndpointConfig = {}) {
         }
 
         // Generate param lists (type, names) and a list with the parameters required from a request
-        const parameterTypes: Type<any>[] = Reflect.getMetadata('design:paramtypes', target, propertyKey).map(
+        const parameterTypes: Type<any>[] = (Reflect.getMetadata('design:paramtypes', target, propertyKey) || []).map(
             (type: Type<any>) => new type()
         );
         const parameterNames: string[] = $args(descriptor.value);

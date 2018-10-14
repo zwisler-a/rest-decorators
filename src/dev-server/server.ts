@@ -3,9 +3,12 @@ import { Route } from '../decorators/route.decorator';
 import { Endpoint } from '../decorators/endpoint.decorator';
 import { CustomParam } from '../decorators/custom-param.decorator';
 import { expressServer } from '../server.class';
+import { Service1 } from './test.service';
 
 @Route({ basePath: '/tests' })
 class Api1 {
+    constructor(private log: Service1) {}
+
     @Endpoint()
     test() {
         return true;
