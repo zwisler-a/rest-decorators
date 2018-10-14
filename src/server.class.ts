@@ -68,6 +68,9 @@ class ExpressServer {
         if (!this.config) {
             throw new Error('Server is not configured!');
         }
+        if (this.config.middleware) {
+            this.app.use(...this.config.middleware);
+        }
         this.prepareExpress();
         this.app.listen(this.config.port, () => Logger.log(`Server listening on port ${this.config.port}!`));
     }
