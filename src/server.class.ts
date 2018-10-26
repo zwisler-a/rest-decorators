@@ -15,6 +15,7 @@ export class HttpServer {
     app;
     config: ServerConfig;
     routes: Route[];
+    endpoints: Endpoint[];
 
     constructor() {
         this.app = express();

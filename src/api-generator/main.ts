@@ -1,18 +1,18 @@
 import * as fs from 'fs';
 
 import { Endpoint } from '../interfaces/endpoint.interface';
-import { expressServer } from '../server.class';
 import { generateService } from './generate-service.function';
 import { Type } from '../interfaces/type.interface';
 import { generateInterface } from './generate-interface.function';
 import { generateModule } from './generate-module.function';
 import { apiResponseInterface } from './api-response.template';
+import { HttpServer } from 'src/server.class';
 
-export function generateApi(outputPath: string) {
-    const orderedEndpoints = orderByService(expressServer.endpoints);
+export function generateApi(outputPath: string, server: HttpServer) {
+    const orderedEndpoints = orderByService(server.endpoints);
     const requiredTypes = [];
     mkDirs(outputPath);
-    expressServer.routes
+    server.routes
         .map(service => {
             const serviceRes = generateService(service, orderedEndpoints[service.constructorFunction.name]);
             requiredTypes.push(...serviceRes.requiredTypes);
@@ -28,8 +28,7 @@ export function generateApi(outputPath: string) {
 
     fs.writeFileSync(outputPath + 'interfaces/api-response.interface.ts', apiResponseInterface);
 
-    fs.writeFileSync(outputPath + 'api.module.ts', generateModule(expressServer.routes));
-
+    fs.writeFileSync(outputPath + 'api.module.ts', generateModule(server.routes));
 }
 
 function orderByService(endpoints: Endpoint[]) {
