@@ -1,18 +1,17 @@
-import 'reflect-metadata';
-
-import { generateApi } from '../api-generator/main';
 import { Injector } from '../injector.class';
 import { ServerConfig } from '../interfaces/server-config.interface';
 import { Type } from '../interfaces/type.interface';
-import { expressServer } from '../server.class';
+import { HttpServer } from '../server.class';
+import { WsServer } from '../ws.server.class';
 
 const defaultConfig: ServerConfig = {
     port: 3000,
     host: '127.0.0.1',
     debug: false,
-    autoStart: true,
+    startWs: false,
     apiGenPath: null,
-    basePath: ''
+    basePath: '',
+    routes: []
 };
 
 /**
@@ -21,13 +20,12 @@ const defaultConfig: ServerConfig = {
  */
 export function Server(config?: ServerConfig) {
     config = Object.assign({}, defaultConfig, config);
-    expressServer.configure(config);
-    if (defaultConfig.autoStart) {
-        expressServer.start();
+    const server = Injector.resolve<HttpServer>(HttpServer);
+    if (config.startWs) {
+        Injector.resolve<WsServer>(WsServer);
     }
-    if (config.apiGenPath) {
-        generateApi(config.apiGenPath);
-    }
+    server.configure(config);
+    server.start();
 
     return function(constructor: Type<any>) {
         Injector.resolve(constructor);

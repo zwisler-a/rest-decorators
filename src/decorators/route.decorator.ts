@@ -1,5 +1,5 @@
+import { Pool } from '../class-pool.class';
 import { RouteConfig } from '../interfaces/route-config.interface';
-import { expressServer } from '../server.class';
 
 const defaultConfig = {
     basePath: ''
@@ -17,7 +17,7 @@ const defaultConfig = {
  */
 export function Route(config?: RouteConfig) {
     return function(constructor: Function) {
-        expressServer.registerRoute({
+        Pool.addRoute({
             config: Object.assign({}, defaultConfig, config),
             constructorFunction: constructor
         });

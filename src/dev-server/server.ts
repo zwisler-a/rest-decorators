@@ -1,36 +1,9 @@
-import { Server } from '../decorators/server.decorator';
-import { Route } from '../decorators/route.decorator';
-import { Endpoint } from '../decorators/endpoint.decorator';
-import { CustomParam } from '../decorators/custom-param.decorator';
-import { expressServer } from '../server.class';
+
+import 'reflect-metadata';
+import { Server } from '../index';
+import { Api1 } from './api1.route';
 import { Service1 } from './test.service';
 
-@Route({ basePath: '/tests' })
-class Api1 {
-    constructor(private log: Service1) {}
+@Server({ debug: true, routes: [Api1], providers: [Service1] })
+class TestServer {}
 
-    @Endpoint()
-    test() {
-        return true;
-    }
-    @Endpoint()
-    test2(param) {
-        return param;
-    }
-    @Endpoint()
-    test3(param: string): string {
-        return param;
-    }
-    @Endpoint()
-    test4(param: string, @CustomParam('url') url): string {
-        console.log(url);
-        return url;
-    }
-}
-
-@Server({ debug: true })
-class TestServer {
-    constructor() {
-        expressServer.register(Api1);
-    }
-}

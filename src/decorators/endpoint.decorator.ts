@@ -1,8 +1,8 @@
+import { Pool } from '../class-pool.class';
 import { $args } from '../get-parameter.function';
 import { CustomParamConfig } from '../interfaces/custom-param.interface';
 import { EndpointConfig, EndpointConfigInternal } from '../interfaces/endpoint-config.interface';
 import { Type } from '../interfaces/type.interface';
-import { expressServer } from '../server.class';
 
 const defaultConfig: EndpointConfig = {
     method: 'GET'
@@ -46,6 +46,6 @@ export function Endpoint(config: EndpointConfig = {}) {
             route: config.route || propertyKey,
             serviceClass: target.constructor.name
         });
-        expressServer.registerEndpoint({ method: descriptor.value, config: epConfig });
+        Pool.addEndpoint({ method: descriptor.value, config: epConfig });
     };
 }
