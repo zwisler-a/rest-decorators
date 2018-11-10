@@ -38,7 +38,7 @@ export class Api1 {
         return true;
     }
     @Endpoint()
-    test2(param) {
+    async test2(param) {
         return param;
     }
     @Endpoint()

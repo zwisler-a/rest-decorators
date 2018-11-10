@@ -5,7 +5,6 @@ export interface ServerConfig {
     host?: string;
     debug?: boolean;
     autoStart?: boolean;
-    apiGenPath?: string;
     startWs?: boolean;
     basePath?: string;
     middleware?: Function[];

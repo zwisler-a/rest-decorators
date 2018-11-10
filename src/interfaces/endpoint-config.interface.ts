@@ -11,7 +11,6 @@ export interface EndpointConfigInternal extends EndpointConfig {
     parameterTypes: Type<any>[];
     parameterNames: string[];
     requiredParams: string[];
-    returnType: Type<any> | void;
     serviceClass: string;
     customParams?: { [key: string]: CustomParamConfig };
 }

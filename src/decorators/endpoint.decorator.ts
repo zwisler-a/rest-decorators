@@ -18,10 +18,6 @@ const defaultConfig: EndpointConfig = {
  */
 export function Endpoint(config: EndpointConfig = {}) {
     return function(target, propertyKey: string, descriptor: PropertyDescriptor) {
-        let returnType = Reflect.getMetadata('design:returntype', target, propertyKey);
-        if (returnType) {
-            returnType = new returnType();
-        }
 
         // Generate param lists (type, names) and a list with the parameters required from a request
         const parameterTypes: Type<any>[] = (Reflect.getMetadata('design:paramtypes', target, propertyKey) || []).map(
@@ -41,7 +37,6 @@ export function Endpoint(config: EndpointConfig = {}) {
             parameterNames,
             requiredParams,
             parameterTypes,
-            returnType,
             customParams,
             route: config.route || propertyKey,
             serviceClass: target.constructor.name

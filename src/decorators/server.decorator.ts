@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { Injector } from '../injector.class';
 import { ServerConfig } from '../interfaces/server-config.interface';
 import { Type } from '../interfaces/type.interface';
@@ -9,7 +10,6 @@ const defaultConfig: ServerConfig = {
     host: '127.0.0.1',
     debug: false,
     startWs: false,
-    apiGenPath: null,
     basePath: '',
     routes: []
 };
