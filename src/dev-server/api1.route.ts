@@ -38,8 +38,8 @@ export class Api1 {
         return true;
     }
     @Endpoint()
-    async test2(param) {
-        return param;
+    async test2() {
+        throw new Error();
     }
     @Endpoint()
     test3(param: string): string {

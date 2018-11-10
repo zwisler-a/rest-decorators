@@ -14,15 +14,16 @@ export function requestHandler(endpoint: Endpoint) {
 
             Logger.debug(endpoint.config.method, req.url, parameters);
             const response = Promise.resolve(endpoint.method.call(endpoint.route.instance, ...parameters));
-            response.then(
-                result => {
+            response
+                .then(result => {
                     Logger.debug('return', result);
                     res.send(ResponseFactory.result(result));
-                },
-                error => {
-                    throw error;
-                }
-            );
+                })
+                .catch(e => {
+                    Logger.debug(e.message, e.stack);
+                    const error = ResponseFactory.error(e.message);
+                    res.status(500).send(error);
+                });
         } catch (e) {
             Logger.debug(e.message, e.stack);
             const error = ResponseFactory.error(e.message);
