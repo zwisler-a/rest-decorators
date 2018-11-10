@@ -11,7 +11,7 @@ import { requestHandler } from './request-handler.factory';
 export function registerEndpoint(route, endpoint: Endpoint) {
     const path = [endpoint.route.config.basePath, endpoint.config.route].join('/');
 
-    Logger.debug('Endpoint:', endpoint.config.method, path, endpoint.config.parameterTypes.join(', '));
+    Logger.debug('Endpoint:', endpoint.config.method, path);
 
     let middleware;
     if (endpoint.route.config.middleware) {
@@ -19,11 +19,9 @@ export function registerEndpoint(route, endpoint: Endpoint) {
     } else {
         middleware = [];
     }
-
     if (endpoint.config.middleware) {
-        middleware.concat(endpoint.config.middleware);
+        middleware.push(...endpoint.config.middleware);
     }
     middleware.push(requestHandler(endpoint));
-
-    route[endpoint.config.method.toLocaleLowerCase()](path, middleware);
+    route[endpoint.config.method.toLocaleLowerCase()](path, ...middleware);
 }

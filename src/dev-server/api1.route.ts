@@ -4,7 +4,15 @@ import { Route } from '../decorators/route.decorator';
 import { Service1 } from './test.service';
 import { Live } from '../decorators/live.decorator';
 
-@Route({ basePath: '/tests' })
+@Route({
+    basePath: '/tests',
+    middleware: [
+        (req, res, next) => {
+            console.log('Service');
+            next();
+        }
+    ]
+})
 export class Api1 {
     @Live({ path: 'asd' })
     public testData;
@@ -16,7 +24,14 @@ export class Api1 {
         log.log('fuck');
     }
 
-    @Endpoint()
+    @Endpoint({
+        middleware: [
+            (req, res, next) => {
+                console.log("Endpoint");
+                next();
+            }
+        ]
+    })
     test() {
         this.testData = Math.random();
         this.testData2 = { rnd: Math.random() };
