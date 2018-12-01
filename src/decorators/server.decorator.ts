@@ -28,6 +28,8 @@ export function Server(config?: ServerConfig) {
     server.start();
 
     return function(constructor: Type<any>) {
+        // What is this for?
+        constructor.prototype.server = server;
         Injector.resolve(constructor);
     };
 }
