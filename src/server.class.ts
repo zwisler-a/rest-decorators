@@ -58,6 +58,9 @@ export class HttpServer {
         if (this.config.middleware) {
             this.app.use(...this.config.middleware);
         }
+        if (this.config.staticPath) {
+            this.app.use(express.static(this.config.staticPath));
+        }
 
         this.prepareExpress();
         this.app.listen(this.config.port, () => Logger.log(`Server listening on port ${this.config.port}!`));

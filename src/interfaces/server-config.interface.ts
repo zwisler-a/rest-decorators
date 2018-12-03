@@ -4,6 +4,7 @@ export interface ServerConfig {
     port?: number;
     host?: string;
     debug?: boolean;
+    staticPath: string;
     startWs?: boolean;
     basePath?: string;
     middleware?: Function[];
