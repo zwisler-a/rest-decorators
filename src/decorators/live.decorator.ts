@@ -7,6 +7,9 @@ export function Live(config: LiveValueConfig): any {
         const liveValue = {
             subscribe: (cb: Function) => {
                 cbs.push(cb);
+                return () => {
+                    cbs.splice(cbs.indexOf(cb), 1);
+                };
             },
             value: undefined,
             config

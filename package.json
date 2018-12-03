@@ -7,7 +7,7 @@
     "scripts": {
         "test": "ts-node node_modules/jasmine/bin/jasmine test/**.ts",
         "compile": "tsc",
-        "release": "npm run compile && npm run package && npm publish dist",
+        "release": "npm run test && rimraf dist && npm run compile && npm run package && npm publish dist",
         "start": "nodemon",
         "package": "copyfiles package.json dist && copyfiles README.md dist"
     },
@@ -23,7 +23,9 @@
         "@types/node": "^10.12.11",
         "copyfiles": "^2.1.0",
         "jasmine": "^3.3.0",
+        "node-fetch": "^2.3.0",
         "nodemon": "^1.18.7",
+        "rimraf": "^2.6.2",
         "ts-node": "^7.0.1",
         "typescript": "^3.2.1"
     }

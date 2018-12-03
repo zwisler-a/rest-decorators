@@ -1,6 +1,7 @@
 import { Route } from './interfaces/route.interface';
 import { Endpoint } from './interfaces/endpoint.interface';
 import { LiveValueConfig } from './interfaces/live-value-config.interface';
+import { LiveValue } from './interfaces/live-value.interface';
 
 export class Pool {
     static routes: Route[] = [];
@@ -13,8 +14,8 @@ export class Pool {
         this.endpoints.push(ep);
     }
 
-    static liveValues: { subscribe: (val: any) => void; value: any; config: LiveValueConfig }[] = [];
-    static addLiveValue(liveValue: { subscribe: (val: any) => void; value: any; config: LiveValueConfig }): any {
+    static liveValues: LiveValue[] = [];
+    static addLiveValue(liveValue: LiveValue): any {
         this.liveValues.push(liveValue);
     }
 }

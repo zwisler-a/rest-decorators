@@ -3,6 +3,7 @@ import { Endpoint } from '../decorators/endpoint.decorator';
 import { Route } from '../decorators/route.decorator';
 import { Service1 } from './test.service';
 import { Live } from '../decorators/live.decorator';
+import { setInterval } from 'timers';
 
 @Route({
     basePath: '/tests',
@@ -21,13 +22,15 @@ export class Api1 {
     public testData2;
 
     constructor(private log: Service1) {
-        log.log('fuck');
+        setInterval(() => {
+            this.testData = Math.random;
+        }, 1000);
     }
 
     @Endpoint({
         middleware: [
             (req, res, next) => {
-                console.log("Endpoint");
+                console.log('Endpoint');
                 next();
             }
         ]
