@@ -1,5 +1,5 @@
 import { Server } from '../src/decorators/server.decorator';
-import { HttpServer } from 'src/server.class';
+import { HttpServer } from '../src/server.class';
 
 @Server({
     port: 3001,
