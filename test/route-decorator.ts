@@ -6,6 +6,6 @@ class TestRoute {}
 
 describe('Route', () => {
     it('should add itself to the classpool', () => {
-        expect(Pool.routes.length).toBe(1);
+        expect(Pool.routes.length).toBeGreaterThan(0);
     });
 });
