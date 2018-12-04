@@ -1,5 +1,5 @@
-import { Type } from './type.interface';
-import { CustomParamConfig } from './custom-param.interface';
+import { Type } from '../internal/type.interface';
+import { CustomParamConfig } from '../../../interfaces/custom-param.interface';
 
 export interface EndpointConfig {
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE';

@@ -1,7 +1,7 @@
-import { Logger } from '../logger.service';
+import { Logger } from '../../logger.service';
 import { processParamters } from './process-parameter.function';
 import { ResponseFactory } from './response.factory';
-import { Endpoint } from '../interfaces/endpoint.interface';
+import { Endpoint } from '../interfaces/internal/endpoint.interface';
 
 /**
  * Generates a function to handle incoming requests for the given endpoint

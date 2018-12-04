@@ -1,7 +1,7 @@
 import * as expressws from 'express-ws';
 
 import { HttpServer } from './server.class';
-import { Service } from './decorators/service.decorator';
+import { Service } from './core/decorators/service.decorator';
 import { Pool } from './class-pool.class';
 import { LiveValueConfig } from './interfaces/live-value-config.interface';
 import { LiveValue } from './interfaces/live-value.interface';

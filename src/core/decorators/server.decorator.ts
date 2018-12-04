@@ -1,9 +1,9 @@
 import 'reflect-metadata';
-import { Injector } from '../injector.class';
-import { ServerConfig } from '../interfaces/server-config.interface';
-import { Type } from '../interfaces/type.interface';
-import { HttpServer } from '../server.class';
-import { WsServer } from '../ws.server.class';
+import { Injector } from '../../injector.class';
+import { ServerConfig } from '../interfaces/external/server-config.interface';
+import { Type } from '../interfaces/internal/type.interface';
+import { HttpServer } from '../../server.class';
+import { WsServer } from '../../ws.server.class';
 
 const defaultConfig: ServerConfig = {
     port: 3000,

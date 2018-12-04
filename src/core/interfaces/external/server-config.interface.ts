@@ -1,4 +1,4 @@
-import { Type } from './type.interface';
+import { Type } from '../internal/type.interface';
 
 export interface ServerConfig {
     /** Application port */

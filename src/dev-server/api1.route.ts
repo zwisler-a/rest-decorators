@@ -1,6 +1,6 @@
 import { CustomParam } from '../decorators/custom-param.decorator';
-import { Endpoint } from '../decorators/endpoint.decorator';
-import { Route } from '../decorators/route.decorator';
+import { Endpoint } from '../core/decorators/endpoint.decorator';
+import { Route } from '../core/decorators/route.decorator';
 import { Service1 } from './test.service';
 import { Live } from '../decorators/live.decorator';
 import { setInterval } from 'timers';

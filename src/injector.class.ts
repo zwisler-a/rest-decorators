@@ -1,4 +1,4 @@
-import { Type } from './interfaces/type.interface';
+import { Type } from './core/interfaces/internal/type.interface';
 
 export class Injector {
     static cachedService = {};

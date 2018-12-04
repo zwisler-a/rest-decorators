@@ -1,5 +1,5 @@
-import { Route } from './interfaces/route.interface';
-import { Endpoint } from './interfaces/endpoint.interface';
+import { Route } from './core/interfaces/internal/route.interface';
+import { Endpoint } from './core/interfaces/internal/endpoint.interface';
 import { LiveValueConfig } from './interfaces/live-value-config.interface';
 import { LiveValue } from './interfaces/live-value.interface';
 

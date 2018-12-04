@@ -1,8 +1,10 @@
-import { Pool } from '../class-pool.class';
-import { $args } from '../get-parameter.function';
-import { CustomParamConfig } from '../interfaces/custom-param.interface';
-import { EndpointConfig, EndpointConfigInternal } from '../interfaces/endpoint-config.interface';
-import { Type } from '../interfaces/type.interface';
+import 'reflect-metadata';
+
+import { Pool } from '../../class-pool.class';
+import { $args } from '../../get-parameter.function';
+import { CustomParamConfig } from '../../interfaces/custom-param.interface';
+import { EndpointConfig, EndpointConfigInternal } from '../interfaces/external/endpoint-config.interface';
+import { Type } from '../interfaces/internal/type.interface';
 
 const defaultConfig: EndpointConfig = {
     method: 'GET'
@@ -18,7 +20,6 @@ const defaultConfig: EndpointConfig = {
  */
 export function Endpoint(config: EndpointConfig = {}) {
     return function(target, propertyKey: string, descriptor: PropertyDescriptor) {
-
         // Generate param lists (type, names) and a list with the parameters required from a request
         const parameterTypes: Type<any>[] = (Reflect.getMetadata('design:paramtypes', target, propertyKey) || []).map(
             (type: Type<any>) => new type()
@@ -41,6 +42,16 @@ export function Endpoint(config: EndpointConfig = {}) {
             route: config.route || propertyKey,
             serviceClass: target.constructor.name
         });
+
+        const proto = target.constructor.prototype;
+        if (!proto['_bridge']) {
+            Object.defineProperty(proto, '_bridge', {
+                value: { endpoints: [] }
+            });
+        }
+        const bridge = proto['_bridge'];
+        bridge.endpoints.push({ method: descriptor.value, config: epConfig });
+
         Pool.addEndpoint({ method: descriptor.value, config: epConfig });
     };
 }

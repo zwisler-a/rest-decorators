@@ -1,4 +1,4 @@
-import { Service } from "../decorators/service.decorator";
+import { Service } from "../core/decorators/service.decorator";
 
 @Service()
 export class Service1 {

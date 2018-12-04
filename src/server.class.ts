@@ -3,18 +3,17 @@ import * as express from 'express';
 
 import { Pool } from './class-pool.class';
 import { Injector } from './injector.class';
-import { Endpoint } from './interfaces/endpoint.interface';
-import { Route } from './interfaces/route.interface';
-import { ServerConfig } from './interfaces/server-config.interface';
+import { Endpoint } from './core/interfaces/internal/endpoint.interface';
+import { Route } from './core/interfaces/internal/route.interface';
+import { ServerConfig } from './core/interfaces/external/server-config.interface';
 import { Logger } from './logger.service';
-import { registerEndpoint } from './request-handler/register-endpoint.function';
-import { Service } from './decorators/service.decorator';
+import { registerEndpoint } from './core/util/register-endpoint.function';
+import { Service } from './core/decorators/service.decorator';
 
 @Service()
 export class HttpServer {
     app;
     config: ServerConfig;
-    routes: Route[];
     endpoints: Endpoint[];
 
     constructor() {
@@ -29,14 +28,14 @@ export class HttpServer {
         const serviceInstance = Injector.resolve(route.constructorFunction, this.config.providers);
         route.instance = serviceInstance;
 
-        serviceEndpoints.forEach(endpoint => {
+        route.endpoints.forEach(endpoint => {
             endpoint.route = route;
         });
     }
 
     prepareExpress() {
         const route = express.Router();
-        this.routes.forEach(route => this.assembleRoute(route));
+        this.config.routes.forEach(route => this.assembleRoute(route.constructor['_bridge']));
         Pool.endpoints.forEach((endpoint: Endpoint) => {
             registerEndpoint(route, endpoint);
         });
@@ -46,7 +45,6 @@ export class HttpServer {
 
     configure(config: ServerConfig) {
         this.config = config;
-        this.routes = this.config.routes.map(ctor => Pool.routes.find(route => ctor === route.constructorFunction));
         Logger.DEBUG = config.debug;
         Logger.debug('Config', this.config);
     }

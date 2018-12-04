@@ -1,4 +1,4 @@
-import { EndpointConfigInternal } from './endpoint-config.interface';
+import { EndpointConfigInternal } from '../external/endpoint-config.interface';
 import { Route } from './route.interface';
 
 export interface Endpoint {

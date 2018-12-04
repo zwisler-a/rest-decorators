@@ -1,4 +1,4 @@
-import { RouteConfig } from './route-config.interface';
+import { RouteConfig } from '../external/route-config.interface';
 
 export interface Route {
     config: RouteConfig;

@@ -1,5 +1,5 @@
-import { Endpoint } from '../interfaces/endpoint.interface';
-import { Logger } from '../logger.service';
+import { Endpoint } from '../interfaces/internal/endpoint.interface';
+import { Logger } from '../../logger.service';
 import { requestHandler } from './request-handler.factory';
 
 /**

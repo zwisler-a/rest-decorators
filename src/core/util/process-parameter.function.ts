@@ -1,7 +1,7 @@
-import { Endpoint } from '../interfaces/endpoint.interface';
-import { Logger } from '../logger.service';
+import { Endpoint } from '../interfaces/internal/endpoint.interface';
+import { Logger } from '../../logger.service';
 import { typeCheck } from './typecheck.function';
-import { CustomParamConfig } from '../interfaces/custom-param.interface';
+import { CustomParamConfig } from '../../interfaces/custom-param.interface';
 
 /**
  * Sorts through the parameters given in a request to find errors and
