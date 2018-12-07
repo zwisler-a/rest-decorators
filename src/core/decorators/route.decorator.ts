@@ -1,5 +1,5 @@
-import { Pool } from '../../class-pool.class';
 import { RouteConfig } from '../interfaces/external/route-config.interface';
+import { Route } from '../interfaces/internal/route.interface';
 
 const defaultConfig = {
     basePath: ''
@@ -17,13 +17,11 @@ const defaultConfig = {
  */
 export function Route(config?: RouteConfig) {
     return function(constructor: Function) {
-        constructor.prototype['_bridge'].config = {
-            config: Object.assign({}, defaultConfig, config)
-        };
-
-        Pool.addRoute({
-            config: Object.assign({}, defaultConfig, config),
-            constructorFunction: constructor
-        });
+        let _bridge: Route | {} = constructor.prototype['_bridge'];
+        if (!_bridge) {
+            constructor.prototype['_bridge'] = {};
+            _bridge = constructor.prototype['_bridge'];
+        }
+        _bridge['config'] = Object.assign({}, defaultConfig, config);
     };
 }

@@ -7,13 +7,13 @@ import { Endpoint } from '../interfaces/internal/endpoint.interface';
  * Generates a function to handle incoming requests for the given endpoint
  * @param endpoint Endpoint to manage
  */
-export function requestHandler(endpoint: Endpoint) {
+export function requestHandler(endpoint: Endpoint, routeInstance) {
     return (req, res) => {
         try {
             const parameters = processParamters(endpoint, req);
 
             Logger.debug(endpoint.config.method, req.url, parameters);
-            const response = Promise.resolve(endpoint.method.call(endpoint.route.instance, ...parameters));
+            const response = Promise.resolve(endpoint.method.call(routeInstance, ...parameters));
             response
                 .then(result => {
                     Logger.debug('return', result);

@@ -5,7 +5,8 @@
     "main": "index.js",
     "types": "index.d.ts",
     "scripts": {
-        "test": "ts-node node_modules/jasmine/bin/jasmine test/**.ts",
+        "test": "nodemon --config nodemon.test.json",
+        "test-once": "ts-node node_modules/jasmine/bin/jasmine test/**.ts",
         "compile": "tsc",
         "release": "npm run test && rimraf dist && npm run compile && npm run package && npm publish dist",
         "start": "nodemon",

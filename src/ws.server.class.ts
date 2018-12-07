@@ -1,8 +1,7 @@
 import * as expressws from 'express-ws';
 
-import { HttpServer } from './server.class';
+import { HttpServer } from './core/util/server.class';
 import { Service } from './core/decorators/service.decorator';
-import { Pool } from './class-pool.class';
 import { LiveValueConfig } from './interfaces/live-value-config.interface';
 import { LiveValue } from './interfaces/live-value.interface';
 
@@ -29,12 +28,12 @@ export class WsServer {
     }
 
     subscribe(ws, to) {
-        const value = Pool.liveValues.find(lv => lv.config.path === to);
+        /* const value = Pool.liveValues.find(lv => lv.config.path === to);
         if (value) {
             return this.createUpdater(ws, value);
         } else {
             ws.send([to, 'unknown'].join(','));
-        }
+        } */
     }
 
     createUpdater(ws, lv: LiveValue) {

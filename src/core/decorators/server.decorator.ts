@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { Injector } from '../../injector.class';
 import { ServerConfig } from '../interfaces/external/server-config.interface';
 import { Type } from '../interfaces/internal/type.interface';
-import { HttpServer } from '../../server.class';
+import { HttpServer } from '../util/server.class';
 import { WsServer } from '../../ws.server.class';
 
 const defaultConfig: ServerConfig = {
@@ -25,10 +25,7 @@ export function Server(config?: ServerConfig) {
         Injector.resolve<WsServer>(WsServer);
     }
     server.configure(config);
-    server.start();
-
     return function(constructor: Type<any>) {
-        // What is this for?
         constructor.prototype.server = server;
         Injector.resolve(constructor);
     };

@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { Server } from '../index';
 import { Api1 } from './api1.route';
 import { Service1 } from './test.service';
+import { Brige } from '../core/public_api';
 
 @Server({
     debug: true,
@@ -16,3 +17,5 @@ import { Service1 } from './test.service';
     ]
 })
 class TestServer {}
+
+Brige.bootstrap(TestServer);

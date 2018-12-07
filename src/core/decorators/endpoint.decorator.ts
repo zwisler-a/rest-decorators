@@ -1,6 +1,5 @@
 import 'reflect-metadata';
 
-import { Pool } from '../../class-pool.class';
 import { $args } from '../../get-parameter.function';
 import { CustomParamConfig } from '../../interfaces/custom-param.interface';
 import { EndpointConfig, EndpointConfigInternal } from '../interfaces/external/endpoint-config.interface';
@@ -39,8 +38,7 @@ export function Endpoint(config: EndpointConfig = {}) {
             requiredParams,
             parameterTypes,
             customParams,
-            route: config.route || propertyKey,
-            serviceClass: target.constructor.name
+            route: config.route || propertyKey
         });
 
         const proto = target.constructor.prototype;
@@ -51,7 +49,5 @@ export function Endpoint(config: EndpointConfig = {}) {
         }
         const bridge = proto['_bridge'];
         bridge.endpoints.push({ method: descriptor.value, config: epConfig });
-
-        Pool.addEndpoint({ method: descriptor.value, config: epConfig });
     };
 }

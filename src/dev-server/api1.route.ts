@@ -1,4 +1,4 @@
-import { CustomParam } from '../decorators/custom-param.decorator';
+import { CustomParam } from '../core/decorators/custom-param.decorator';
 import { Endpoint } from '../core/decorators/endpoint.decorator';
 import { Route } from '../core/decorators/route.decorator';
 import { Service1 } from './test.service';

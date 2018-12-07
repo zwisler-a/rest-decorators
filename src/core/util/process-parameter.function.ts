@@ -1,7 +1,5 @@
 import { Endpoint } from '../interfaces/internal/endpoint.interface';
-import { Logger } from '../../logger.service';
 import { typeCheck } from './typecheck.function';
-import { CustomParamConfig } from '../../interfaces/custom-param.interface';
 
 /**
  * Sorts through the parameters given in a request to find errors and
@@ -25,7 +23,7 @@ export function processParamters(ep: Endpoint, req) {
             req.body[param] ||
             req.params[param] ||
             req.query[param] ||
-            req[(ep.config.customParams[param] || {} as any).paramSource] ||
+            req[(ep.config.customParams[param] || ({} as any)).paramSource] ||
             error('Missing parameter ' + param)
         );
     });

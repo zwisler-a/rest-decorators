@@ -1,4 +1,3 @@
-import { Pool } from '../class-pool.class';
 import { LiveValueConfig } from 'src/interfaces/live-value-config.interface';
 
 export function Live(config: LiveValueConfig): any {
@@ -25,7 +24,7 @@ export function Live(config: LiveValueConfig): any {
             enumerable: true,
             configurable: true
         };
-        Pool.addLiveValue(liveValue);
+        // Pool.addLiveValue(liveValue);
         return desc;
     };
 }
