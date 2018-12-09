@@ -28,6 +28,12 @@ describe('Process parameter', () => {
         expect(sup[0]).toBe(1);
     });
 
+    it('should read 0 the from body', () => {
+        const req = { params: {}, query: {}, body: { a: 0 } };
+        const sup = processParamters(ep, req);
+        expect(sup[0]).toBe(0);
+    });
+
     it('should throw an error on missing parameter', () => {
         const req = { params: {}, query: {}, body: {} };
         expect(() => {

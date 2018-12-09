@@ -12,6 +12,8 @@ export function processParamters(ep: Endpoint, req) {
         throw new Error(err);
     };
 
+    const defined = val => typeof val !== 'undefined';
+
     [req.params, req.query, req.body].forEach(source => {
         if (Object.keys(source).length > ep.config.requiredParams.length) {
             error('To many parameters. Parameters should be ' + ep.config.requiredParams.join(', '));
@@ -19,13 +21,13 @@ export function processParamters(ep: Endpoint, req) {
     });
 
     const suppliedParams = ep.config.parameterNames.map((param, index) => {
-        return (
-            req.body[param] ||
-            req.params[param] ||
-            req.query[param] ||
-            req[(ep.config.customParams[param] || ({} as any)).paramSource] ||
-            error('Missing parameter ' + param)
-        );
+        if (defined(req.body[param])) return req.body[param];
+        if (defined(req.params[param])) return req.params[param];
+        if (defined(req.query[param])) return req.query[param];
+        const customParam = (ep.config.customParams[param] || ({} as any)).paramSource;
+        if (defined(req[customParam])) return req[customParam];
+
+        error('Missing parameter ' + param);
     });
 
     suppliedParams.forEach((name, idx) => {
