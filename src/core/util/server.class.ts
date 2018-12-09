@@ -60,8 +60,9 @@ export class HttpServer {
                 this.config.staticPath.forEach(path => {
                     this.app.use(express.static(path));
                 });
+            } else {
+                this.app.use(express.static(this.config.staticPath));
             }
-            this.app.use(express.static(this.config.staticPath));
         }
 
         this.prepareExpress();
