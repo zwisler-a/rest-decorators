@@ -8,7 +8,7 @@ export interface ServerConfig {
     /** log debug messages */
     debug?: boolean;
     /** Path of the static file serve */
-    staticPath?: string;
+    staticPath?: string | string[];
     /** If the websocket server should start */
     startWs?: boolean;
     /** global api prefix */
