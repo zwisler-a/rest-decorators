@@ -2,8 +2,8 @@ import { CustomParam } from '../core/decorators/custom-param.decorator';
 import { Endpoint } from '../core/decorators/endpoint.decorator';
 import { Route } from '../core/decorators/route.decorator';
 import { Service1 } from './test.service';
-import { Live } from '../decorators/live.decorator';
 import { setInterval } from 'timers';
+import { Live } from '../ws/public_api';
 
 @Route({
     basePath: '/tests',

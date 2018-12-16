@@ -25,3 +25,39 @@ A rest api route
 Method decorator
 
 A rest api endpoint
+
+
+## WS not yet done
+
+```ts
+
+@Route({
+    basePath: '/tests',
+    middleware: [
+        (req, res, next) => {
+            console.log('Service');
+            next();
+        }
+    ]
+})
+export class Api1 {
+    @Endpoint()
+    test(){}
+}
+
+@Server({
+    debug: true,
+    routes: [Api1],
+    startWs: true,
+    providers: [Service1],
+    middleware: [
+        (req, res, next) => {
+            console.log('server');
+            next();
+        }
+    ]
+})
+class TestServer {}
+
+Brige.bootstrap(TestServer);
+```

@@ -1,5 +1,5 @@
-import { CustomParamConfig } from '../../interfaces/custom-param.interface';
-import "reflect-metadata";
+import { CustomParamConfig } from '../interfaces/internal/custom-param.interface';
+import 'reflect-metadata';
 /**
  * Used to retieve a value inside the express request object.
  * @example

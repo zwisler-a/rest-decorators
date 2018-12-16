@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
-import { $args } from '../../get-parameter.function';
-import { CustomParamConfig } from '../../interfaces/custom-param.interface';
+import { $args } from '../util/get-parameter.function';
+import { CustomParamConfig } from '../interfaces/internal/custom-param.interface';
 import { EndpointConfig, EndpointConfigInternal } from '../interfaces/external/endpoint-config.interface';
 import { Type } from '../interfaces/internal/type.interface';
 

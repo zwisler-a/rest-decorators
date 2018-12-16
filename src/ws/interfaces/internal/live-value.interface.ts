@@ -1,4 +1,4 @@
-import { LiveValueConfig } from './live-value-config.interface';
+import { LiveValueConfig } from '../external/live-value-config.interface';
 
 export class LiveValue {
     /** Returns a function which unsubscribes if it gets called */

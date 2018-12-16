@@ -1,9 +1,8 @@
 import * as expressws from 'express-ws';
 
-import { HttpServer } from './core/util/server.class';
-import { Service } from './core/decorators/service.decorator';
-import { LiveValueConfig } from './interfaces/live-value-config.interface';
-import { LiveValue } from './interfaces/live-value.interface';
+import { HttpServer } from '../../core/util/server.class';
+import { Service } from '../../core/decorators/service.decorator';
+import { LiveValue } from '../interfaces/internal/live-value.interface';
 
 @Service()
 export class WsServer {

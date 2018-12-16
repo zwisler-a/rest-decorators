@@ -1,4 +1,4 @@
-import { LiveValueConfig } from 'src/interfaces/live-value-config.interface';
+import { LiveValueConfig } from "../interfaces/external/live-value-config.interface";
 
 export function Live(config: LiveValueConfig): any {
     return function() {

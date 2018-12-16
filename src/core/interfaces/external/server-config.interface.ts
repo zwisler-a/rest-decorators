@@ -9,8 +9,8 @@ export interface ServerConfig {
     debug?: boolean;
     /** Path of the static file serve */
     staticPath?: string | string[];
-    /** If the websocket server should start */
-    startWs?: boolean;
+    /** Modules that should be imported */
+    imports?: Type<any>[];
     /** global api prefix */
     basePath?: string;
     /** middlewares the server uses */
