@@ -21,13 +21,11 @@ export function requestHandler(endpoint: Endpoint, routeInstance) {
                 })
                 .catch(e => {
                     Logger.debug(e.message, e.stack);
-                    const error = ResponseFactory.error(e.message);
-                    res.status(500).send(error);
+                    ResponseFactory.error(e, res);
                 });
         } catch (e) {
             Logger.debug(e.message, e.stack);
-            const error = ResponseFactory.error(e.message);
-            res.status(500).send(error);
+            ResponseFactory.error(e, res);
         }
     };
 }

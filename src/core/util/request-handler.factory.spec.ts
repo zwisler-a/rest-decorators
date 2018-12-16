@@ -1,5 +1,6 @@
 import { Endpoint } from '../interfaces/internal/endpoint.interface';
 import { requestHandler } from './request-handler.factory';
+import { BridgeError } from './bridge.error';
 
 describe('Requesthandler factory', () => {
     const ep: Endpoint = {
@@ -43,7 +44,7 @@ describe('Requesthandler factory', () => {
         handler(req, res);
     });
 
-    it('should call the get method', done => {
+    it('should have default error 500', done => {
         ep.method = () => {
             throw new Error();
         };
@@ -51,6 +52,28 @@ describe('Requesthandler factory', () => {
 
         res.status = status => {
             expect(status).toBe(500);
+            return {
+                send: text => {
+                    expect(text).toBeDefined();
+                    done();
+                }
+            };
+        };
+
+        res.send = text => {
+            return '';
+        };
+        handler(req, res);
+    });
+
+    it('should have customizeable error code', done => {
+        ep.method = () => {
+            throw new BridgeError(401, '');
+        };
+        const handler = requestHandler(ep, { test: () => {} });
+
+        res.status = status => {
+            expect(status).toBe(401);
             return {
                 send: text => {
                     expect(text).toBeDefined();
