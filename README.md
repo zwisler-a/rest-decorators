@@ -26,19 +26,10 @@ Method decorator
 
 A rest api endpoint
 
-
-## WS not yet done
-
 ```ts
 
 @Route({
-    basePath: '/tests',
-    middleware: [
-        (req, res, next) => {
-            console.log('Service');
-            next();
-        }
-    ]
+    basePath: '/tests'
 })
 export class Api1 {
     @Endpoint()
@@ -61,3 +52,7 @@ class TestServer {}
 
 Brige.bootstrap(TestServer);
 ```
+
+## WS not yet done
+
+

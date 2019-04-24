@@ -1,4 +1,5 @@
 import { Type } from '../internal/type.interface';
+import { Resolve } from './resolve.interface';
 
 export interface ServerConfig {
     /** Application port */
@@ -19,4 +20,6 @@ export interface ServerConfig {
     providers?: Type<any>[];
     /** Routes registered on the server */
     routes: Type<any>[];
+    /** Gets called on startup. Server starts when the Promise returned by resolve is resolved */
+    resolve?: Type<Resolve>;
 }

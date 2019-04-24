@@ -48,9 +48,12 @@ export class HttpServer {
         Logger.debug('Config', this.config);
     }
 
-    start() {
+    async start() {
         if (!this.config) {
             throw new Error('Server is not configured!');
+        }
+        if(this.config.resolve){
+
         }
         if (this.config.middleware) {
             this.app.use(...this.config.middleware);
