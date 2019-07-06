@@ -1,3 +1,3 @@
 export interface Resolve {
-    resolve(): Promise<void>;
+    resolve(): Promise<any>;
 }

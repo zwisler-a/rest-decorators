@@ -1,5 +1,6 @@
 import { Type } from '../internal/type.interface';
 import { Resolve } from './resolve.interface';
+import { Provider } from 'src/core/di/provider.type';
 
 export interface ServerConfig {
     /** Application port */
@@ -17,7 +18,7 @@ export interface ServerConfig {
     /** middlewares the server uses */
     middleware?: Function[];
     /** Services registered on the Server */
-    providers?: Type<any>[];
+    providers?: Provider[];
     /** Routes registered on the server */
     routes: Type<any>[];
     /** Gets called on startup. Server starts when the Promise returned by resolve is resolved */

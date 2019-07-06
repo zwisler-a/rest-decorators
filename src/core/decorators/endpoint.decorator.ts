@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 
-import { $args } from '../util/get-parameter.function';
-import { CustomParamConfig } from '../interfaces/internal/custom-param.interface';
 import { EndpointConfig, EndpointConfigInternal } from '../interfaces/external/endpoint-config.interface';
+import { CustomParamConfig } from '../interfaces/internal/custom-param.interface';
 import { Type } from '../interfaces/internal/type.interface';
+import { $args } from '../util/get-parameter.function';
 
 const defaultConfig: EndpointConfig = {
     method: 'GET'

@@ -1,7 +1,7 @@
 import { BridgeError } from './bridge.error';
 
 export class ResponseFactory {
-    static result(result: any): any {
+    result(result: any): any {
         return {
             error: false,
             errorMessage: '',
@@ -9,8 +9,8 @@ export class ResponseFactory {
             timestamp: new Date().getTime().toString()
         };
     }
-    static error(error: Error | BridgeError, res) {
-        if (ResponseFactory.isBridgeError(error)) {
+    error(error: Error | BridgeError, res) {
+        if (this.isBridgeError(error)) {
             res = res.status(error.statusCode);
         } else {
             res = res.status(500);
@@ -22,7 +22,7 @@ export class ResponseFactory {
         });
     }
 
-    static isBridgeError(error): error is BridgeError {
+    isBridgeError(error): error is BridgeError {
         return (<BridgeError>error).statusCode !== undefined;
     }
 }

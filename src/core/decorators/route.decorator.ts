@@ -1,5 +1,8 @@
+import 'reflect-metadata';
+
 import { RouteConfig } from '../interfaces/external/route-config.interface';
 import { Route } from '../interfaces/internal/route.interface';
+
 
 const defaultConfig = {
     basePath: ''
