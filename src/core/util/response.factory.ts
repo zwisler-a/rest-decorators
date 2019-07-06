@@ -1,5 +1,7 @@
 import { BridgeError } from './bridge.error';
+import { Service } from '../decorators/service.decorator';
 
+@Service()
 export class ResponseFactory {
     result(result: any): any {
         return {
@@ -10,8 +12,8 @@ export class ResponseFactory {
         };
     }
     error(error: Error | BridgeError, res) {
-        if (this.isBridgeError(error)) {
-            res = res.status(error.statusCode);
+        if ((<BridgeError>error).statusCode !== undefined) {
+            res = res.status((<BridgeError>error).statusCode);
         } else {
             res = res.status(500);
         }
@@ -20,9 +22,5 @@ export class ResponseFactory {
             errorMessage: error.message,
             timestamp: new Date().getTime().toString()
         });
-    }
-
-    isBridgeError(error): error is BridgeError {
-        return (<BridgeError>error).statusCode !== undefined;
     }
 }

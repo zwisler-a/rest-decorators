@@ -1,8 +1,9 @@
 import { Server } from '..';
-import { INIT_DATA } from '../core/interfaces/external/init-data.token';
 import { Bridge } from '../core/public_api';
+import { ResponseFactory } from '../core/util/response.factory';
 import { WsModule } from '../ws/public_api';
 import { Api1 } from './api1.route';
+import { MyResponseFactory } from './my-response.factory';
 import { TestInitResolver } from './test.resolver';
 import { Service1 } from './test.service';
 

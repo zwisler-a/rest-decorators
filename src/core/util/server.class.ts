@@ -8,15 +8,14 @@ import { SERVER_CONFIG } from '../interfaces/external/server-config.token';
 import { Endpoint } from '../interfaces/internal/endpoint.interface';
 import { Route } from '../interfaces/internal/route.interface';
 import { Type } from '../interfaces/internal/type.interface';
-import { ResponseFactory } from './response.factory';
-import { typeCheck } from './typecheck.function';
+import { ResponseHandlerFactory } from './response-handler.factory';
 
 @Service()
 export class HttpServer {
     app;
     endpoints: Endpoint[];
 
-    constructor(private injector: Injector, private config: SERVER_CONFIG, private responseFactory: ResponseFactory) {
+    constructor(private injector: Injector, private config: SERVER_CONFIG, private responseHandler: ResponseHandlerFactory) {
         this.app = express();
         this.app.use(bodyParse.json());
 
@@ -34,75 +33,9 @@ export class HttpServer {
         _bridge.instance = serviceInstance;
         Logger.debug('Route: ', _bridge.config.basePath);
         endpoints.forEach(ep => {
-            this.registerEndpoint(expressRoute, ep, serviceInstance);
+            this.responseHandler.registerEndpoint(expressRoute, ep, serviceInstance);
         });
         expressRouter.use(_bridge.config.basePath, expressRoute);
-    }
-
-    private registerEndpoint(route, endpoint: Endpoint, routeInstance) {
-        Logger.debug(' Endpoint:', endpoint.config.method, endpoint.config.route, ', Params:', endpoint.config.parameterNames);
-        let middleware = [];
-        if (endpoint.config.middleware) {
-            middleware.push(...endpoint.config.middleware);
-        }
-        middleware.push(this.createRequestHandler(endpoint, routeInstance));
-        const epRoute = endpoint.config.route.charAt(0) === '/' ? endpoint.config.route : '/' + endpoint.config.route;
-        route[endpoint.config.method.toLocaleLowerCase()](epRoute, ...middleware);
-    }
-
-    private createRequestHandler(endpoint: Endpoint, routeInstance) {
-        return (req, res) => {
-            try {
-                const parameters = this.getRequestParameters(endpoint, req);
-
-                Logger.debug(endpoint.config.method, req.url, parameters);
-                const response = Promise.resolve(endpoint.method.call(routeInstance, ...parameters));
-                response
-                    .then(result => {
-                        Logger.debug('return', result);
-                        res.send(this.responseFactory.result(result));
-                    })
-                    .catch(e => {
-                        Logger.debug(e.message, e.stack);
-                        this.responseFactory.error(e, res);
-                    });
-            } catch (e) {
-                Logger.debug(e.message, e.stack);
-                this.responseFactory.error(e, res);
-            }
-        };
-    }
-
-    private getRequestParameters(ep: Endpoint, req) {
-        const error = err => {
-            throw new Error(err);
-        };
-
-        const defined = val => typeof val !== 'undefined';
-
-        [req.params, req.query, req.body].forEach(source => {
-            if (Object.keys(source).length > ep.config.requiredParams.length) {
-                error('To many parameters. Parameters should be [' + ep.config.requiredParams.join(', ') + ']');
-            }
-        });
-
-        const suppliedParams = ep.config.parameterNames.map((param, index) => {
-            if (defined(req.body[param])) return req.body[param];
-            if (defined(req.params[param])) return req.params[param];
-            if (defined(req.query[param])) return req.query[param];
-            const customParam = (ep.config.customParams[param] || ({} as any)).paramSource;
-            if (defined(req[customParam])) return req[customParam];
-
-            error('Missing parameter: "' + param + '". Parameters should be [' + ep.config.requiredParams.join(', ') + ']');
-        });
-
-        suppliedParams.forEach((name, idx) => {
-            if (!typeCheck(suppliedParams[idx], ep.config.parameterTypes[idx])) {
-                error('Type missmatch: ' + name + ' should have properties ' + Object.keys(ep.config.parameterTypes[idx]));
-            }
-        });
-
-        return suppliedParams;
     }
 
     prepareExpress() {

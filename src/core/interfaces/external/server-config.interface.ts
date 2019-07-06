@@ -21,6 +21,6 @@ export interface ServerConfig {
     providers?: Provider[];
     /** Routes registered on the server */
     routes: Type<any>[];
-    /** Gets called on startup. Server starts when the Promise returned by resolve is resolved */
+    /** Gets called on startup. Server starts when the Promise returned by resolve is resolved. Data returned in the promise is provided in INIT_DATA */
     resolve?: Type<Resolve>;
 }

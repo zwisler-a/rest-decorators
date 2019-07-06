@@ -8,7 +8,7 @@ export class Injector {
     providers: Provider[] = [];
 
     constructor(providers: Provider[] = []) {
-        this.providers = providers;
+        this.providers = providers.concat();
         this.providers.push(Injector);
         this.cachedService[Injector.name] = this;
     }
@@ -22,8 +22,9 @@ export class Injector {
         const getInjection = (token: Type<any>) => {
             // Get Provider from provided array
             const possibleProviders = this.providers.filter(
-                provider => !(provider == token || (OverwriteProvider.isInstance(provider) && provider.provide == token))
+                provider => provider == token || (OverwriteProvider.isInstance(provider) && provider.provide == token)
             );
+            console.log(target.name, 'PS', possibleProviders);
             if (!possibleProviders.length)
                 throw new Error("Can't resolve " + target.name + ' dependency ' + token.name + ' is not provided');
             const provider = possibleProviders.find(provider => OverwriteProvider.isInstance(provider)) || possibleProviders[0];
