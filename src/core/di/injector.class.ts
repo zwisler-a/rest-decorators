@@ -24,7 +24,6 @@ export class Injector {
             const possibleProviders = this.providers.filter(
                 provider => provider == token || (OverwriteProvider.isInstance(provider) && provider.provide == token)
             );
-            console.log(target.name, 'PS', possibleProviders);
             if (!possibleProviders.length)
                 throw new Error("Can't resolve " + target.name + ' dependency ' + token.name + ' is not provided');
             const provider = possibleProviders.find(provider => OverwriteProvider.isInstance(provider)) || possibleProviders[0];
