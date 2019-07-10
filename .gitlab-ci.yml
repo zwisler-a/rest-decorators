@@ -1,9 +1,9 @@
 build site:
   image: node:latest
-  stage: release
+  stage: deploy
   script:
     - npm install --progress=false
-    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'>.npmrc
+    - echo '//registry.npmjs.org/:_authToken=${ }'>.npmrc
     - npm run release
   artifacts:
     expire_in: 1 week
