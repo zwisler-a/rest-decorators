@@ -1,0 +1,11 @@
+build site:
+  image: node:latest
+  stage: release
+  script:
+    - npm install --progress=false
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'>.npmrc
+    - npm run release
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist

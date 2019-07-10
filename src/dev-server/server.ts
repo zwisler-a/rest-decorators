@@ -1,15 +1,18 @@
-import 'reflect-metadata';
-import { Server } from '../index';
-import { Api1 } from './api1.route';
-import { Service1 } from './test.service';
-import { Brige } from '../core/public_api';
+import { Server } from '..';
+import { Bridge } from '../core/public_api';
+import { ResponseFactory } from '../core/util/response.factory';
 import { WsModule } from '../ws/public_api';
+import { Api1 } from './api1.route';
+import { MyResponseFactory } from './my-response.factory';
+import { TestInitResolver } from './test.resolver';
+import { Service1 } from './test.service';
 
 @Server({
     debug: true,
     routes: [Api1],
     imports: [WsModule],
     providers: [Service1],
+    resolve: TestInitResolver,
     middleware: [
         (req, res, next) => {
             console.log('server');
@@ -17,6 +20,7 @@ import { WsModule } from '../ws/public_api';
         }
     ]
 })
-class TestServer {}
+class TestServer {
+}
 
-Brige.bootstrap(TestServer);
+Bridge.bootstrap(TestServer);

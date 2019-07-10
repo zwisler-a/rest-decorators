@@ -24,7 +24,6 @@ export function Live(config: LiveValueConfig): any {
             enumerable: true,
             configurable: true
         };
-        // Pool.addLiveValue(liveValue);
         return desc;
     };
 }

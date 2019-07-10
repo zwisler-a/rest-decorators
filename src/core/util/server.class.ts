@@ -1,24 +1,26 @@
 import * as bodyParse from 'body-parser';
 import * as express from 'express';
 
-import { Injector } from '../../injector.class';
+import { Logger } from '../../logger.service';
+import { Service } from '../decorators/service.decorator';
+import { Injector } from '../di/injector.class';
+import { SERVER_CONFIG } from '../interfaces/external/server-config.token';
 import { Endpoint } from '../interfaces/internal/endpoint.interface';
 import { Route } from '../interfaces/internal/route.interface';
-import { ServerConfig } from '../interfaces/external/server-config.interface';
-import { Logger } from '../../logger.service';
-import { registerEndpoint } from './register-endpoint.function';
-import { Service } from '../decorators/service.decorator';
 import { Type } from '../interfaces/internal/type.interface';
+import { ResponseHandlerFactory } from './response-handler.factory';
 
 @Service()
 export class HttpServer {
     app;
-    config: ServerConfig;
     endpoints: Endpoint[];
 
-    constructor() {
+    constructor(private injector: Injector, private config: SERVER_CONFIG, private responseHandler: ResponseHandlerFactory) {
         this.app = express();
         this.app.use(bodyParse.json());
+
+        Logger.DEBUG = config.debug;
+        Logger.debug('Config', this.config);
     }
 
     assembleRoute(route: Type<any>, expressRouter) {
@@ -26,12 +28,12 @@ export class HttpServer {
         const _bridge: Route = route.prototype['_bridge'];
         const endpoints = _bridge.endpoints;
 
-        const serviceInstance = Injector.resolve(route, this.config.providers);
+        const serviceInstance = this.injector.resolve(route);
 
         _bridge.instance = serviceInstance;
         Logger.debug('Route: ', _bridge.config.basePath);
         endpoints.forEach(ep => {
-            registerEndpoint(expressRoute, ep, serviceInstance);
+            this.responseHandler.registerEndpoint(expressRoute, ep, serviceInstance);
         });
         expressRouter.use(_bridge.config.basePath, expressRoute);
     }
@@ -42,16 +44,11 @@ export class HttpServer {
         this.app.use('/' + this.config.basePath, expressRoute);
     }
 
-    configure(config: ServerConfig) {
-        this.config = config;
-        Logger.DEBUG = config.debug;
-        Logger.debug('Config', this.config);
-    }
-
-    start() {
+    async start() {
         if (!this.config) {
             throw new Error('Server is not configured!');
         }
+
         if (this.config.middleware) {
             this.app.use(...this.config.middleware);
         }
