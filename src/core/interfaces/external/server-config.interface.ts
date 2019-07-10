@@ -1,6 +1,6 @@
 import { Type } from '../internal/type.interface';
 import { Resolve } from './resolve.interface';
-import { Provider } from 'src/core/di/provider.type';
+import { Provider } from '../../di/provider.type';
 
 export interface ServerConfig {
     /** Application port */
