@@ -48,7 +48,7 @@ export class Api1 {
         return param;
     }
     @Endpoint()
-    test4(param: string, @CustomParam('url') url): string {
+    test4(param: string, @CustomParam('url') url, @CustomParam('') req): string {
         return url;
     }
 }

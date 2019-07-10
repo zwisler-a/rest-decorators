@@ -23,7 +23,7 @@ export class ResponseHandlerFactory {
             try {
                 const parameters = this.getRequestParameters(endpoint, req);
 
-                Logger.debug(endpoint.config.method, req.url, parameters);
+                Logger.debug(endpoint.config.method, req.url);
                 const response = Promise.resolve(endpoint.method.call(routeInstance, ...parameters));
                 response
                     .then(result => {
@@ -60,6 +60,7 @@ export class ResponseHandlerFactory {
             if (defined(req.query[param])) return req.query[param];
             const customParam = (ep.config.customParams[param] || ({} as any)).paramSource;
             if (defined(req[customParam])) return req[customParam];
+            if (customParam === '') return req;
 
             error('Missing parameter: "' + param + '". Parameters should be [' + ep.config.requiredParams.join(', ') + ']');
         });
