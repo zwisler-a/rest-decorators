@@ -21,7 +21,7 @@ export class ResponseHandlerFactory {
     private createRequestHandler(endpoint: Endpoint, routeInstance) {
         return (req, res) => {
             try {
-                const parameters = this.getRequestParameters(endpoint, req);
+                const parameters = this.getRequestParameters(endpoint, req, res);
 
                 Logger.debug(endpoint.config.method, req.url);
                 const response = Promise.resolve(endpoint.method.call(routeInstance, ...parameters));
@@ -41,7 +41,7 @@ export class ResponseHandlerFactory {
         };
     }
 
-    private getRequestParameters(ep: Endpoint, req) {
+    private getRequestParameters(ep: Endpoint, req, res) {
         const error = err => {
             throw new Error(err);
         };
@@ -60,7 +60,8 @@ export class ResponseHandlerFactory {
             if (defined(req.query[param])) return req.query[param];
             const customParam = (ep.config.customParams[param] || ({} as any)).paramSource;
             if (defined(req[customParam])) return req[customParam];
-            if (customParam === '') return req;
+            if (customParam === 'express-request' || customParam === '') return req;
+            if (customParam === 'express-response') return res;
 
             error('Missing parameter: "' + param + '". Parameters should be [' + ep.config.requiredParams.join(', ') + ']');
         });
