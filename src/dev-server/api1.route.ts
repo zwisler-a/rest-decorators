@@ -3,6 +3,7 @@ import { Endpoint } from '../core/decorators/endpoint.decorator';
 import { Route } from '../core/decorators/route.decorator';
 import { Service1 } from './test.service';
 import { Live } from '../ws/public_api';
+import { NoResponse } from '../core/public_api';
 
 @Route({
     basePath: '/tests',
@@ -48,7 +49,7 @@ export class Api1 {
         return param;
     }
     @Endpoint()
-    test4(param: string, @CustomParam('url') url, @CustomParam('') req): string {
-        return url;
+    test4(param: string, @CustomParam('url') url, @CustomParam('') req) {
+        return new NoResponse();
     }
 }

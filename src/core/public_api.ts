@@ -11,4 +11,5 @@ export * from './decorators/server.decorator';
 export * from './decorators/route.decorator';
 
 export * from './util/response.factory';
+export * from './util/no-response.class';
 export * from './util/bridge.bootstrapper';

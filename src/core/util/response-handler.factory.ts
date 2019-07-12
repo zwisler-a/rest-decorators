@@ -2,6 +2,7 @@ import { Endpoint } from '../interfaces/internal/endpoint.interface';
 import { Logger } from '../../logger.service';
 import { ResponseFactory } from './response.factory';
 import { Service } from '../decorators/service.decorator';
+import { NoResponse } from './no-response.class';
 
 @Service()
 export class ResponseHandlerFactory {
@@ -28,6 +29,7 @@ export class ResponseHandlerFactory {
                 response
                     .then(result => {
                         Logger.debug('return', result);
+                        if (result instanceof NoResponse) return;
                         res.send(this.responseFactory.result(result));
                     })
                     .catch(e => {
