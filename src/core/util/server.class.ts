@@ -32,6 +32,7 @@ export class HttpServer {
 
         _bridge.instance = serviceInstance;
         Logger.debug('Route: ', _bridge.config.basePath);
+        express
         endpoints.forEach(ep => {
             this.responseHandler.registerEndpoint(expressRoute, ep, serviceInstance);
         });
