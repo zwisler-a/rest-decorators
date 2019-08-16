@@ -14,5 +14,6 @@ export class SERVER_CONFIG implements ServerConfig {
     providers?: Provider[];
     routes: Type<any>[];
     resolve?: Type<Resolve>;
+    fallbackResponse?: Function;
     constructor() {}
 }

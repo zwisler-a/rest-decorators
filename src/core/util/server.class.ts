@@ -66,6 +66,11 @@ export class HttpServer {
         }
 
         this.prepareExpress();
+
+        if(this.config.fallbackResponse) {
+            this.app.use(this.config.fallbackResponse);
+        }
+
         this.app.listen(this.config.port, this.config.host, () => Logger.log(`Server listening on port ${this.config.port}!`));
     }
 }

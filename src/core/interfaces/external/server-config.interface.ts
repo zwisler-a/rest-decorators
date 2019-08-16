@@ -23,4 +23,6 @@ export interface ServerConfig {
     routes: Type<any>[];
     /** Gets called on startup. Server starts when the Promise returned by resolve is resolved. Data returned in the promise is provided in INIT_DATA */
     resolve?: Type<Resolve>;
+    /** Fallback route if the requested resource is not registered */
+    fallbackResponse?: Function;
 }

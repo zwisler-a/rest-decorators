@@ -13,6 +13,9 @@ import { Service1 } from './test.service';
     imports: [WsModule],
     providers: [Service1],
     resolve: TestInitResolver,
+    fallbackResponse: (req, res) => {
+        res.send('fallback');
+    },
     middleware: [
         (req, res, next) => {
             console.log('server');
@@ -20,7 +23,6 @@ import { Service1 } from './test.service';
         }
     ]
 })
-class TestServer {
-}
+class TestServer {}
 
 Bridge.bootstrap(TestServer);
