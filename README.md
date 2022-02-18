@@ -2,9 +2,11 @@
 <br />
 
 <div align="center">
- <img  src="./docs/image.png" />
+  <img  src="./docs/image.png" />
+  <h3 align="center">Typescript decorators</h3>
+  <br>
   <p align="center">
-    Typescript decorators
+    REST-Server using Typescript decorators
   </p>
 </div>
 <br />
@@ -15,6 +17,7 @@
 <div align="center">
  Typescript - Decorators - IoC - Dependency Injection
 </div>
+<br>
 
 An adaption of the express framework working with typescript decorators.
 Implements dependency injection to help structure a server created with it.
