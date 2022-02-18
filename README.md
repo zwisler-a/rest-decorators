@@ -1,30 +1,48 @@
-# Bridge
 
-## Introduction
+<br />
 
-Typescript decorators for a simple 'rest' api.
-Nothing fancy yet, more or less for personal use.
-Includes slefmade dependency injection.
-Used for personal projects. For a proper framework try nestjs
+<div align="center">
+ <img  src="./docs/image.png" />
+  <p align="center">
+    Typescript decorators
+  </p>
+</div>
+<br />
 
+# Typescript decorators
+
+<img  src="./docs/preview.png"/>
+<div align="center">
+ Typescript - Decorators - IoC - Dependency Injection
+</div>
+
+An adaption of the express framework working with typescript decorators.
+Implements dependency injection to help structure a server created with it.
+(A way worse version of nestjs)
 
 ## Example Code
 
 ```ts
 @Route({
-    basePath: '/tests'
+    basePath: '/foo'
 })
-export class Api1 {
+export class BarRoute {
+
+    // Automaticlly sind websockets events when
+    // the property gets updated
+    @Live({ path: 'live' }) 
+    public liveData;
+
+    // Expose REST-Endpoint
     @Endpoint()
-    test() {}
+    foo() {return "bar";}
 }
 
 @Server({
-    debug: true,
-    routes: [Api1],
-    providers: [Service1]
+    routes: [BarRoute],
+    providers: [FooService]
 })
-class TestServer {}
+class MyServer {}
 
-Brige.bootstrap(TestServer);
+Brige.bootstrap(MyServer);
 ```
